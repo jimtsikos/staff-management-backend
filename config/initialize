@@ -1,0 +1,20 @@
+CREATE DATABASE staffmanagement;
+
+CREATE TYPE business_type AS ENUM ('bar', 'restaurant', 'club', 'hotel', 'cafe');
+CREATE TABLE business (
+    ID SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    location VARCHAR NOT NULL,
+    type business_type DEFAULT NULL 
+);
+
+CREATE TYPE staff_position AS ENUM ('kitchen', 'service', 'PR');
+CREATE TABLE staff (
+    ID SERIAL PRIMARY KEY NOT NULL,
+    business_id INTEGER REFERENCES business(id) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    first_name VARCHAR(200) NOT NULL,
+    last_name VARCHAR(200) NOT NULL,
+    position staff_position NOT NULL, 
+    phone_number VARCHAR(50) DEFAULT NULL
+);
