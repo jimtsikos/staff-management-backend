@@ -43,7 +43,6 @@ app.put('/business/:id', [
     business.updateBusiness(request, response);
 })
 app.delete('/business/:id', business.deleteBusiness)
-app.get('/business/:id/staff', business.getBusinessStaff)
 
 // API Routes for Staff
 app.get('/staff', staff.getStaff)

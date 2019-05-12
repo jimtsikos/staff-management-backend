@@ -33,6 +33,7 @@ const updateBusiness = (request, response) => {
             throw error
         }
         response.status(200).json({
+            id: id, 
             name: name, 
             location: location,
             type: type
@@ -62,22 +63,10 @@ const deleteBusiness = (request, response) => {
     })
 }
 
-const getBusinessStaff = (request, response) => {
-    const id = parseInt(request.params.id)
-
-    db.pool.query('SELECT * FROM staff WHERE business_id = $1 ORDER BY id ASC', [id], (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
-}
-
 module.exports = {
     getBusinesses,
     createBusiness,
     updateBusiness,
     getBusinessById,
-    deleteBusiness,
-    getBusinessStaff
+    deleteBusiness
 }
