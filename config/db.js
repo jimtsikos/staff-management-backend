@@ -1,6 +1,6 @@
 const Pool = require('pg').Pool
 
-const db = new Pool({
+const pool = new Pool({
   user: '',
   host: '',
   database: '',
@@ -9,5 +9,5 @@ const db = new Pool({
 })
 
 module.exports = {
-    db
+  pool
 }
