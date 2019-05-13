@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator/check')
+const cors = require('cors');
 
 const business = require('../queries/business')
 const staff = require('../queries/staff')
@@ -8,6 +9,11 @@ const staff = require('../queries/staff')
 const app = express();
 const PORT = 5000;
 
+const corsOptions = {
+  origin: 'http://localhost:3000'
+}
+
+app.use(cors(corsOptions));
 app.use(
     bodyParser.urlencoded({
         extended: true
