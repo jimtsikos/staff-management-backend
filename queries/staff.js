@@ -11,7 +11,19 @@ const getStaff = (request, response) => {
     })
 }
 
-const createStaff = (request, response) => {
+const getStaffByBusinessId = (request, response) => {
+    const id = parseInt(request.params.id)
+
+    db.pool.query('SELECT * FROM staff WHERE business_id = $1 ORDER BY id ASC', [id], (error, results) => {
+      if (error) {
+			utilities.handleError(response, error);
+			return;
+      }
+      response.status(200).json(results.rows)
+    })
+}
+
+const createMember = (request, response) => {
     const { business_id, email, first_name, last_name, position, phone_number } = request.body
     db.pool.query('INSERT INTO staff (business_id, email, first_name, last_name, position, phone_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id', 
                     [business_id, email, first_name, last_name, position === "" ? null : position, phone_number], (error, result) => {
@@ -31,7 +43,7 @@ const createStaff = (request, response) => {
     })
 }
 
-const updateStaff = (request, response) => {
+const updateMember = (request, response) => {
     const id = parseInt(request.params.id)
     const { business_id, email, first_name, last_name, position, phone_number } = request.body
 
@@ -53,19 +65,7 @@ const updateStaff = (request, response) => {
     })
 }
 
-const getStaffByBusinessId = (request, response) => {
-    const id = parseInt(request.params.id)
-
-    db.pool.query('SELECT * FROM staff WHERE business_id = $1 ORDER BY id ASC', [id], (error, results) => {
-      if (error) {
-			utilities.handleError(response, error);
-			return;
-      }
-      response.status(200).json(results.rows)
-    })
-}
-
-const getStaffById = (request, response) => {
+const getMemberById = (request, response) => {
     const id = parseInt(request.params.id)
 
     db.pool.query('SELECT * FROM staff WHERE id = $1', [id], (error, results) => {
@@ -77,7 +77,7 @@ const getStaffById = (request, response) => {
     })
 }
 
-const deleteStaff = (request, response) => {
+const deleteMember = (request, response) => {
     const id = parseInt(request.params.id)
   
     db.pool.query('DELETE FROM staff WHERE id = $1', [id], (error, results) => {
@@ -91,9 +91,9 @@ const deleteStaff = (request, response) => {
 
 module.exports = {
     getStaff,
-    createStaff,
-    updateStaff,
-    getStaffByBusinessId,
-    getStaffById,
-    deleteStaff
+	getStaffByBusinessId,
+    createMember,
+    updateMember,
+    getMemberById,
+    deleteMember
 }
