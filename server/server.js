@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 
 require('../routes/v1/business')(app);
 require('../routes/v1/staff')(app);
+require('../routes/v1/enumtypes')(app);
 
 app.listen(PORT, function(){
     console.log('Server is running on Port:',PORT);
