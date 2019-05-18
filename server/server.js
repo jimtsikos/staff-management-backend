@@ -17,6 +17,10 @@ app.use(
 );
 app.use(bodyParser.json());
 
+// Initialize database
+const database = require('../config/initialize');
+database.initialize();
+
 require('../routes/v1/business')(app);
 require('../routes/v1/staff')(app);
 require('../routes/v1/enumtypes')(app);
